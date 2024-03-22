@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catálogo de Produtos</title>
+</head>
+<body>
+    <h1>Catálogo de Produtos: Choppe</h1>
+
+    <script>
+        const catalogo = [];
+
+        function cadastrarProduto() {
+            var nome = prompt("Digite o nome do produto:");
+            var preco = parseFloat(prompt("Digite o preço do produto:"));
+            var produto = { nome, preco };
+            catalogo.push(produto);
+            alert("Produto cadastrado com sucesso!");
+        }
+
+        function buscarProduto() {
+            var nome = prompt("Digite o nome do produto que deseja buscar:");
+            var produtoEncontrado = catalogo.find(produto => produto.nome === nome);
+            if (produtoEncontrado)
+                alert(`Produto encontrado: ${produtoEncontrado.nome}, Preço: R$ ${produtoEncontrado.preco.toFixed(2)}`);
+            else
+                alert("Produto não encontrado.");
+        }
+
+        function atualizarProduto() {
+            var nome = prompt("Digite o nome do produto que deseja atualizar:");
+            var produtoEncontrado = catalogo.find(produto => produto.nome === nome);
+            if (produtoEncontrado) {
+                var novoNome = prompt("Digite o novo nome do produto:");
+                var novoPreco = parseFloat(prompt("Digite o novo preço do produto:"));
+                produtoEncontrado.nome = novoNome;
+                produtoEncontrado.preco = novoPreco;
+                alert("Produto atualizado com sucesso!");
+            } else {
+                alert("Produto não foi encontrado.");
+            }
+        }
+
+        function visualizarCatalogo() {
+            if (catalogo.length > 0) {
+                var listaProdutos = catalogo.map(produto => `${produto.nome} - Preço: R$ ${produto.preco.toFixed(2)}`).join('\n');
+                alert(listaProdutos);
+            } else {
+                alert("Catálogo vazio.");
+            }
+        }
+
+        function removerProduto() {
+            var nome = prompt("Digite o nome do produto que deseja remover:");
+            var index = catalogo.findIndex(produto => produto.nome === nome);
+            if (index !== -1) {
+                catalogo.splice(index, 1);
+                alert("Produto removido com sucesso!");
+            } else {
+                alert("Produto não encontrado.");
+            }
+        }
+
+        function main() {
+            alert("Olá Seja bem vind@ ao cadastro de produtos da choppe! ")
+            var resp;
+            do {
+                resp = prompt(`Por favor escolha uma opção:
+                1. Cadastrar Produto
+                2. Buscar Produto
+                3. Atualizar Produto
+                4. Visualizar Catálogo
+                5. Remover Produto
+                6. Sair`);
+                switch(resp) {
+                    case "1":
+                        cadastrarProduto();
+                        break;
+                    case "2":
+                        buscarProduto();
+                        break;
+                    case "3":
+                        atualizarProduto();
+                        break;
+                    case "4":
+                        visualizarCatalogo();
+                        break;
+                    case "5":
+                        removerProduto();
+                        break;
+                    case "6":
+                        alert("Obrigado por utilizar o catálogo Choope. Volte sempre!");
+                        break;
+                    default:
+                        alert("Opção inválida. Por favor, escolha uma opção válida.");
+                }
+            } while (resp !== "6");
+        }
+
+        main();
+    </script>
+</body>
+</html>
